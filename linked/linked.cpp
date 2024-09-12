@@ -105,6 +105,8 @@ size_t aceinetzxx::linked<T>::size(){
   return result;
 }
 
+// avoid link errors
+// probably a bad idea I just don't want to research how to fix it now
 void FixLinkErrors(){
   aceinetzxx::linked<int> linked;
   linked.push_back(nullptr);
