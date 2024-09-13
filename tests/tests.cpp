@@ -76,6 +76,17 @@ int main(int argc, char **argv)
     failed_count++;
   }
 
+  auto arr = x * 2;
+  if (arr[2] == 123 && arr[3] == 69)
+  {
+    std::cout << "[7] (operator*) Paased" << std::endl;
+  }
+  else
+  {
+    std::cout << "[7] (operator*) Failed" << std::endl;
+    failed_count++;
+  }
+
   if (failed_count == 0)
   {
     std::cout << "All tests passed" << std::endl;
