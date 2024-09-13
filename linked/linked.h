@@ -72,11 +72,10 @@ namespace aceinetzxx {
 
       // functions
       void push_back(T arg){
-        T src=arg;
         if(this->begin == nullptr){
           this->begin = new aceinetzxx::linked_entry();
           this->begin->element_bytes = new char[this->element_size];
-          memcpy(this->begin->element_bytes, &src, this->element_size);
+          memcpy(this->begin->element_bytes, &arg, this->element_size);
           this->begin->next = nullptr;
           this->begin->previous = nullptr;
         } else {
@@ -88,7 +87,7 @@ namespace aceinetzxx {
           current_entry->next = new aceinetzxx::linked_entry();
           current_entry->next->next = nullptr;
           current_entry->next->element_bytes = new char[this->element_size];
-          memcpy(current_entry->next->element_bytes, &src, this->element_size);
+          memcpy(current_entry->next->element_bytes, &arg, this->element_size);
           current_entry->next->previous = current_entry;
         }
       }
