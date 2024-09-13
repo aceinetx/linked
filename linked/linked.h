@@ -14,6 +14,7 @@
 #include <stdexcept>
 #include <string>
 #include <stdlib.h>
+#include <cstring>
 
 namespace aceinetzxx {
 
@@ -23,6 +24,10 @@ namespace aceinetzxx {
 
       char *what(){
         return (char*)message.c_str();
+      }
+
+      LinkedError(std::string x){
+        message = x;
       }
   };
 
@@ -44,7 +49,7 @@ namespace aceinetzxx {
         this->element_size = sizeof(T);
         this->begin = nullptr;
       }
-       
+
       ~linked(){
         linked_entry *current_entry = this->begin;
 
@@ -60,7 +65,7 @@ namespace aceinetzxx {
       }
 
       // operators
-      T operator[](size_t i){
+      T& operator[](size_t i){
         return at(i);
       }
 
@@ -93,9 +98,8 @@ namespace aceinetzxx {
         while(true){
           if (current_entry->next == nullptr)
           {
-            T element;
-            memcpy(&element, current_entry->element_bytes, this->element_size);
-            if(current_entry->previous != nullptr) current_entry->previous->next = nullptr;
+            T element = *(int *)current_entry->element_bytes;
+            current_entry->previous->next = nullptr;
             delete current_entry->element_bytes;
             delete current_entry;
             return element;
@@ -107,37 +111,36 @@ namespace aceinetzxx {
         }
       }
 
-      T back(){
+      T& back(){
         linked_entry *current_entry = this->begin;
         while(true){
           if (current_entry->next == nullptr)
           {
-            T element;
-            memcpy((char*)&element, current_entry->element_bytes, this->element_size);
-            return element; 
+            return *(int*)current_entry->element_bytes; 
           }
           else
           {
             current_entry = current_entry->next;
           }
         }
-        return 0;
+        throw aceinetzxx::LinkedError("back() failed");
       }
 
-      T at(size_t idx){
+      T& at(size_t idx){
         linked_entry *current_entry = this->begin;
         size_t pos=0;
         while(true){
           if(pos == idx)
           {
-            T element;
-            memcpy(&element, current_entry->element_bytes, this->element_size);
-            return element;
+            //T element;
+            //memcpy(&element, current_entry->element_bytes, this->element_size);
+            //return element;
+            return *(int*)current_entry->element_bytes;
           }
 
           if(current_entry->next == nullptr)
           {
-            return 0;
+            throw aceinetzxx::LinkedError("at() failed");
           }
 
           current_entry = current_entry->next;

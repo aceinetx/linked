@@ -11,7 +11,7 @@ int main(int argc, char** argv){
   x.push_back(num);
   x.push_back(sixty_nine);
   x.push_back(num);
-  
+
   int failed_count = 0;
 
   auto element = x.back();
