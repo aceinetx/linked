@@ -1,5 +1,12 @@
 # linked
 a double-linked array library for c++<br>
+## Features
+- std::vector-like functions
+- usee class templates
+- minimal standard library usage
+- minimal dependencies
+- easy to set up
+- python multiplication
 # Example
 ```c++
 #include "linked.h"
