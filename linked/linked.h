@@ -13,6 +13,7 @@
 #include <stddef.h>
 #include <stdexcept>
 #include <string>
+#include <stdlib.h>
 
 namespace aceinetzxx {
 
@@ -26,7 +27,7 @@ namespace aceinetzxx {
   };
 
   struct linked_entry {
-		void* element;
+		char* element_bytes;
 		linked_entry* next;
 		linked_entry* previous;
 	};
@@ -53,16 +54,20 @@ namespace aceinetzxx {
 
           linked_entry *old_entry = current_entry;
           current_entry = current_entry->next;
+          delete old_entry->element_bytes;
           delete old_entry;
         }
       }
 
 
-      // array functions
-      void push_back(T* arg){
+      // functions
+
+      void push_back(T arg){
+        T src=arg;
         if(this->begin == nullptr){
           this->begin = new aceinetzxx::linked_entry();
-          this->begin->element = arg;
+          this->begin->element_bytes = new char[this->element_size];
+          memcpy(this->begin->element_bytes, &src, this->element_size);
           this->begin->next = nullptr;
           this->begin->previous = nullptr;
         } else {
@@ -72,20 +77,23 @@ namespace aceinetzxx {
             current_entry = current_entry->next;
           }
           current_entry->next = new aceinetzxx::linked_entry();
-          current_entry->next->element = arg;
           current_entry->next->next = nullptr;
+          current_entry->next->element_bytes = new char[this->element_size];
+          memcpy(current_entry->next->element_bytes, &src, this->element_size);
           current_entry->next->previous = current_entry;
         }
       }
 
-      T* pop_back(){
+      T pop_back(){
         linked_entry *current_entry = this->begin;
         while(true){
           if (current_entry->next == nullptr)
           {
-            T *element = (T*)current_entry->element;
+            T element;
+            memcpy(&element, current_entry->element_bytes, this->element_size);
             if(current_entry->previous != nullptr) current_entry->previous->next = nullptr;
-              delete current_entry;
+            delete current_entry->element_bytes;
+            delete current_entry;
             return element;
           }
           else
@@ -95,32 +103,37 @@ namespace aceinetzxx {
         }
       }
 
-      T* back(){
+      T back(){
         linked_entry *current_entry = this->begin;
         while(true){
           if (current_entry->next == nullptr)
           {
-            return (T*)current_entry->element;
+            T element;
+            memcpy((char*)&element, current_entry->element_bytes, this->element_size);
+            return element; 
           }
           else
           {
             current_entry = current_entry->next;
           }
         }
+        return 0;
       }
 
-      T* at(size_t idx){
+      T at(size_t idx){
         linked_entry *current_entry = this->begin;
         size_t pos=0;
         while(true){
           if(pos == idx)
           {
-            return (T*)current_entry->element;
+            T element;
+            memcpy(&element, current_entry->element_bytes, this->element_size);
+            return element;
           }
 
           if(current_entry->next == nullptr)
           {
-            return nullptr;
+            return 0;
           }
 
           current_entry = current_entry->next;

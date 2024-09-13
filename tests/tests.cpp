@@ -8,14 +8,14 @@ int main(int argc, char** argv){
   int sixty_nine = 69;
 
   aceinetzxx::linked<int> x;
-  x.push_back(&num);
-  x.push_back(&sixty_nine);
-  x.push_back(&num);
-
+  x.push_back(num);
+  x.push_back(sixty_nine);
+  x.push_back(num);
+  
   int failed_count = 0;
 
   auto element = x.back();
-  if(*element == num){
+  if(element == num){
     std::cout << "[1] (back) Passed" << std::endl;
   } else {
     std::cout << "[1] (back) Failed" << std::endl;
@@ -29,7 +29,7 @@ int main(int argc, char** argv){
     failed_count++;
   }
 
-  if(*x.pop_back() == 123){
+  if(x.pop_back() == 123){
     std::cout << "[3] (pop_back) Passed" << std::endl;
   } else {
     std::cout << "[3] (pop_back) Failed" << std::endl;
@@ -43,7 +43,7 @@ int main(int argc, char** argv){
     failed_count++;
   }
 
-  if(*x.at(1) == 69){
+  if(x.at(1) == 69){
     std::cout << "[5] (at) Passed" << std::endl;
   } else {
     std::cout << "[5] (at) Failed" << std::endl;
