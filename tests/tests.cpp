@@ -5,10 +5,11 @@
 int main(int argc, char** argv){
 
   int num = 123;
+  int sixty_nine = 69;
 
   aceinetzxx::linked<int> x;
   x.push_back(&num);
-  x.push_back(&num);
+  x.push_back(&sixty_nine);
   x.push_back(&num);
 
   int failed_count = 0;
@@ -39,6 +40,13 @@ int main(int argc, char** argv){
     std::cout << "[4] (size) Passed" << std::endl;
   } else {
     std::cout << "[4] (size) Failed" << std::endl;
+    failed_count++;
+  }
+
+  if(*x.at(1) == 69){
+    std::cout << "[5] (at) Passed" << std::endl;
+  } else {
+    std::cout << "[5] (at) Failed" << std::endl;
     failed_count++;
   }
 

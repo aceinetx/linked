@@ -57,6 +57,7 @@ namespace aceinetzxx {
         }
       }
 
+
       // array functions
       void push_back(T* arg){
         if(this->begin == nullptr){
@@ -76,6 +77,7 @@ namespace aceinetzxx {
           current_entry->next->previous = current_entry;
         }
       }
+
       T* pop_back(){
         linked_entry *current_entry = this->begin;
         while(true){
@@ -92,6 +94,7 @@ namespace aceinetzxx {
           }
         }
       }
+
       T* back(){
         linked_entry *current_entry = this->begin;
         while(true){
@@ -105,6 +108,26 @@ namespace aceinetzxx {
           }
         }
       }
+
+      T* at(size_t idx){
+        linked_entry *current_entry = this->begin;
+        size_t pos=0;
+        while(true){
+          if(pos == idx)
+          {
+            return (T*)current_entry->element;
+          }
+
+          if(current_entry->next == nullptr)
+          {
+            return nullptr;
+          }
+
+          current_entry = current_entry->next;
+          pos++;
+        }
+      }
+
       size_t size(){
         size_t result = 0;
 
