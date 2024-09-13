@@ -2,7 +2,7 @@
 a double-linked array library for c++<br>
 ## Features
 - std::vector-like functions
-- usee class templates
+- uses class templates
 - minimal standard library usage
 - minimal dependencies
 - easy to set up
