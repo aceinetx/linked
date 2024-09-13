@@ -50,6 +50,13 @@ int main(int argc, char** argv){
     failed_count++;
   }
 
+  if(x[1] == 69){
+    std::cout << "[6] (operator[]) Paased" << std::endl;
+  } else {
+    std::cout << "[6] (operator[]) Failed" << std::endl;
+    failed_count++;
+  }
+
   if(failed_count == 0){
     std::cout << "All tests passed" << std::endl;
   } else {

@@ -12,9 +12,11 @@ int main(){
   arr.push_back(num);
 
   std::cout << "The number is " << arr.back() << std::endl; // should print "The number is 69"
+  // to get the number at index we can use arr[n] or arr.at(n)
 
   arr.pop_back(); // this removes the last element and returns it
                   // but no need to do that in this case because deconstructor cleans everything
+
 }
 
 ```

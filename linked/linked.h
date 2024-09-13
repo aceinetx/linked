@@ -59,9 +59,13 @@ namespace aceinetzxx {
         }
       }
 
+      // operators
+      T operator[](size_t i){
+        return at(i);
+      }
+
 
       // functions
-
       void push_back(T arg){
         T src=arg;
         if(this->begin == nullptr){
