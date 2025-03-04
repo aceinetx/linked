@@ -1,4 +1,4 @@
-#include "rebuild.h"
+#include "_rebuild/rebuild.h"
 
 int main(int argc, char **argv) {
   system("mkdir -p build");
