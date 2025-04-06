@@ -1,12 +1,16 @@
 #include "_rebuild/rebuild.h"
 
+std::string script = R"(
+target "build/linked_tests" needs "build/linked_tests.o"
+	cmd "g++ -o #OUT #DEPENDS"
+
+ctarget "build/linked_tests.o" needs "tests/tests.cpp"
+	cmd "g++ -c -o #OUT #DEPENDS -Ilinked"
+	ctargs "-Ilinked"
+)";
+
 int main(int argc, char **argv) {
   system("mkdir -p build");
-  rebuild_targets.push_back(Target::create(
-      "build/linked_tests", {"build/linked_tests.o"}, "g++ -o #OUT #DEPENDS"));
-  rebuild_targets.push_back(
-      CTarget::create("build/linked_tests.o", {"tests/tests.cpp"},
-                      "g++ -c -o #OUT #DEPENDS -Ilinked",
-                      REBUILD_STANDARD_CXX_COMPILER, "-Ilinked"));
+  rescript::do_rescript(script);
   return 0;
 }
