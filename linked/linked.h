@@ -139,9 +139,6 @@ public:
     size_t pos = 0;
     while (true) {
       if (pos == idx) {
-        // T element;
-        // memcpy(&element, current_entry->element_bytes, this->element_size);
-        // return element;
         return *(int *)current_entry->element_bytes;
       }
 
